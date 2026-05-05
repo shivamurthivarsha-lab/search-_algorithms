@@ -1,0 +1,26 @@
+from collections import deque
+
+# Tree represented as adjacency list
+tree = {
+    1: [2, 3],
+    2: [4, 5],
+    3: [6, 7],
+    4: [],
+    5: [],
+    6: [],
+    7: []
+}
+
+def bfs(start):
+    visited = []
+    queue = deque([start])
+
+    while queue:
+        node = queue.popleft()
+        if node not in visited:
+            visited.append(node)
+            queue.extend(tree[node])  # Add children to queue
+    return visited
+
+# Run BFS
+print("BFS Traversal:", bfs(1))
