@@ -1,0 +1,44 @@
+import random
+
+# Initialize a 4x4 grid with random clean/dirty cells
+def initialize_room(size=4):
+    return [[random.choice(['Dirty', 'Clean']) for _ in range(size)] for _ in range(size)]
+
+# Display the room state
+def display_room(room):
+    for row in room:
+        print(row)
+    print()
+
+# Simulate robot cleaning
+def clean_room(room):
+    cleaned_locations = []
+    total_dirty = sum(row.count('Dirty') for row in room)
+    cleaned_count = 0
+
+    for i in range(len(room)):
+        for j in range(len(room[i])):
+            if room[i][j] == 'Dirty':
+                room[i][j] = 'Clean'
+                cleaned_locations.append((i, j))
+                cleaned_count += 1
+
+    performance = (cleaned_count / total_dirty * 100) if total_dirty > 0 else 100
+    return cleaned_locations, performance
+
+# Main program
+def main():
+    room = initialize_room()
+    print("Initial Room State:")
+    display_room(room)
+
+    cleaned_locations, performance = clean_room(room)
+
+    print("Final Room State after Cleaning:")
+    display_room(room)
+
+    print("Locations cleaned by the robot:", cleaned_locations)
+    print(f"Performance: {performance:.2f}%")
+
+if __name__ == "__main__":
+    main()
