@@ -1,0 +1,42 @@
+# Tree represented as adjacency list
+tree = {
+    1: [2, 3],
+    2: [4, 5],
+    3: [6, 7],
+    4: [],
+    5: [],
+    6: [],
+    7: []
+}
+
+# (a) Depth-Limited Search (DLS)
+def dls(node, limit, visited=None, depth=0):
+    if visited is None:
+        visited = []
+    if depth > limit:
+        return visited
+    
+    visited.append(node)
+    if depth < limit:
+        for child in tree[node]:
+            dls(child, limit, visited, depth + 1)
+    return visited
+
+# (b) Iterative Deepening Depth-First Search (IDDFS)
+def iddfs(start, max_depth):
+    for depth in range(1, max_depth + 1):
+        visited = dls(start, depth)
+        print(f"Depth Limit {depth}: Visited nodes {visited}")
+
+# Main execution
+def main():
+    print("=== Depth-Limited Search (DLS) ===")
+    limit = 2
+    visited_dls = dls(1, limit)
+    print(f"DLS Traversal with depth limit {limit}: {visited_dls}\n")
+
+    print("=== Iterative Deepening DFS (IDDFS) ===")
+    iddfs(1, 3)
+
+if __name__ == "__main__":
+    main()
